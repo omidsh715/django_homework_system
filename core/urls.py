@@ -5,5 +5,5 @@ app_name = 'core'
 urlpatterns = [
     path('student_upload/',views.student_upload, name="student_upload"),
     path('teacher_upload/', views.teacher_upload, name='teacher_upload'),
-    path('success/', views.index, 'success'),
+    path('success/', views.index, name='success'),
 ]

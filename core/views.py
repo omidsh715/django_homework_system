@@ -7,14 +7,17 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     return render(request, 'index.html')
 
-# todo there is no attribute named is_teacher or is_student
+
+# todo: saving user object as teacher or student
 @login_required
 def teacher_upload(request):
     if request.user.user_type == 2:
         if request.method == "POST":
             form = TeacherFile(request.POST, request.FILES)
             if form.is_valid:
-                form.save()
+                post = form.save(commit=False)
+                post.teacher = request.user
+                post.save()
                 return redirect('core:success')
         else:
             form = TeacherFile()
