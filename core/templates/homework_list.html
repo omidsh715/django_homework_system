@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for homework in homeworks %}
+<div>
+<h1>{{ homework.title }}</h1>
+<h3> <a href="{% url 'core:student_upload' homework.id %} "> detail </a> </h3>
+</div>
+{% endfor %}
+</body>
+</html>

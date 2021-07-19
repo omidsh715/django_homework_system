@@ -19,7 +19,7 @@ class HomeWorks(models.Model):
 
 
 class HomeWorkUpload(models.Model):
-    homework = models.ManyToManyField(HomeWorks, limit_choices_to={"is_enable": True})
+    homework = models.ForeignKey(HomeWorks, limit_choices_to={"is_enable": True}, on_delete=models.CASCADE)
     file = models.FileField(upload_to='uploaded_files/students_answers/')
     student = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, limit_choices_to={'user_type': 1},
                                 related_name='student_user_upload')
