@@ -1,12 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import TeacherFile, StudentFile
 from django.contrib.auth.decorators import login_required
-from .models import HomeWorks
-from .models import HomeWorks
+from .models import HomeWorks, HomeWorkUpload
 # Create your views here.
-
-# todo 1 : download homework quiz for student
-# todo 2 : teacher can see the student's uploads
 
 
 def index(request):
@@ -16,8 +12,21 @@ def index(request):
 @login_required
 def homework_list(request):
     homeworks = HomeWorks.objects.filter(student=request.user)
-    context = {'homeworks':homeworks}
-    return render(request,'homework_list.html', context=context)
+    context = {'homeworks': homeworks}
+    return render(request, 'homework_list.html', context=context)
+
+
+def teacher_homeworks_list(request):
+    if request.user.user_type == 2:
+        homeworks = HomeWorks.objects.filter(teacher=request.user)
+        return render(request, 'teacher_homework_list.html', context={'homeworks': homeworks})
+
+
+def download_student_answers(request, pk):
+    if request.user.user_type == 2:
+        homeworks = HomeWorkUpload.objects.filter(homework_id=pk)
+        context = {"homeworks": homeworks}
+        return render(request, 'download_student_answers.html', context=context)
 
 
 @login_required
@@ -51,4 +60,3 @@ def student_upload(request, pk):
             form = StudentFile()
             context = {'form': form}
             return render(request, 'student_upload.html', context)
-

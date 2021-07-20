@@ -7,8 +7,9 @@
 <body>
 {% for homework in homeworks %}
 <div>
-<h1>{{ homework.title }}</h1>
-<h3> <a href="{% url 'core:student_upload' homework.id %} "> detail </a> </h3>
+    <h1>{{ homework.title }}</h1>
+    <h3> <a href="{{homework.file.url}}"> download homework quiz </a> </h3>
+    <h3> <a href="{% url 'core:student_upload' homework.id %} "> upload answer </a> </h3>
 </div>
 {% endfor %}
 </body>

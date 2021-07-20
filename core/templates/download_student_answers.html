@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for homework in homeworks %}
+<br>
+<li>
+{{homework.student}} - <a href="{{homework.file.url}}"> download </a>
+</li>
+<br>
+{% endfor %}
+</body>
+</html>
