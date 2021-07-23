@@ -32,11 +32,11 @@ class HomeWorkUpload(models.Model):
     def __str__(self):
         return '{}'.format(self.homework)
 
-#
-# class Results(models.Model):
-#
-#     homework = models.ManyToManyField(HomeWorks, limit_choices_to={'is_enable': True})
-#     score = models.PositiveSmallIntegerField()
-#
-#     def __str__(self):
-#         return '{}'.format(self.homework)
+
+class Results(models.Model):
+
+    homework = models.ManyToManyField(HomeWorks, limit_choices_to={'is_enable': True})
+    score = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return '{}'.format(self.homework)
