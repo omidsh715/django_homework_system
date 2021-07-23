@@ -4,6 +4,9 @@ from homework.settings import AUTH_USER_MODEL
 
 
 class HomeWorks(models.Model):
+    """
+    home works that will create by teachers and upload quiz file on them
+    """
     title = models.CharField(max_length=255)
     file = models.FileField(upload_to="uploaded_files/teachers_quiz/")
     teacher = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, limit_choices_to={'user_type': 2},
@@ -19,6 +22,9 @@ class HomeWorks(models.Model):
 
 
 class HomeWorkUpload(models.Model):
+    """
+    files that students uploads for a specific homework
+    """
     homework = models.ForeignKey(HomeWorks, limit_choices_to={"is_enable": True}, on_delete=models.CASCADE)
     file = models.FileField(upload_to='uploaded_files/students_answers/')
     student = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, limit_choices_to={'user_type': 1},
@@ -26,10 +32,11 @@ class HomeWorkUpload(models.Model):
     def __str__(self):
         return '{}'.format(self.homework)
 
-
-class Results(models.Model):
-    homework = models.ManyToManyField(HomeWorks, limit_choices_to={'is_enable': True})
-    score = models.PositiveSmallIntegerField()
-
-    def __str__(self):
-        return '{}'.format(self.homework)
+#
+# class Results(models.Model):
+#
+#     homework = models.ManyToManyField(HomeWorks, limit_choices_to={'is_enable': True})
+#     score = models.PositiveSmallIntegerField()
+#
+#     def __str__(self):
+#         return '{}'.format(self.homework)

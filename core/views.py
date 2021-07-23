@@ -11,18 +11,27 @@ def index(request):
 
 @login_required
 def homework_list(request):
+    """
+    view for showing all homework lists that belongs to student
+    """
     homeworks = HomeWorks.objects.filter(student=request.user)
     context = {'homeworks': homeworks}
     return render(request, 'homework_list.html', context=context)
 
-
+@login_required
 def teacher_homeworks_list(request):
+    """
+    view for showing all homeworks that a teacher has been created
+    """
     if request.user.user_type == 2:
         homeworks = HomeWorks.objects.filter(teacher=request.user)
         return render(request, 'teacher_homework_list.html', context={'homeworks': homeworks})
 
 
 def download_student_answers(request, pk):
+    """
+    view for teachers that help them to download students answers
+    """
     if request.user.user_type == 2:
         homeworks = HomeWorkUpload.objects.filter(homework_id=pk)
         context = {"homeworks": homeworks}
@@ -31,6 +40,9 @@ def download_student_answers(request, pk):
 
 @login_required
 def teacher_upload(request):
+    """
+    view for teacher that they can create a homework object and upload quiz
+    """
     if request.user.user_type == 2:
         if request.method == "POST":
             form = TeacherFile(request.POST, request.FILES)
@@ -47,6 +59,9 @@ def teacher_upload(request):
 
 @login_required
 def student_upload(request, pk):
+    """
+    view for students that they can upload their file to homework with given pk
+    """
     if request.user.user_type == 1:
         if request.method == "POST":
             form = StudentFile(request.POST, request.FILES)
